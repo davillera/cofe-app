@@ -3,74 +3,86 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Calificación con 5 estrellas + comentario</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <title>Reviews</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <main class="container">
+    <button class="back-btn" aria-label="Volver">‹</button>
+
     <h1>Reviews</h1>
 
-    <section class="review-widget" aria-labelledby="titulo-widget">
-      <h2 id="titulo-widget" class="sr-only">Widget de calificación</h2>
+    <!-- Dirección (pill) -->
+    <div class="address-pill">
+      Cra. 29 A #9A-14 Local 56,<br/> Santa Marta, Magdalena
+    </div>
+
+    <!-- Ítems para reseñar -->
+    <section class="items" aria-labelledby="items-title">
+      <h2 id="items-title" class="section-title">Tu pedido</h2>
+      <ul id="itemsList" class="items-list">
+        <!-- Se llena por JS -->
+      </ul>
+    </section>
+
+    <!-- Widget de calificación -->
+    <section class="widget" aria-labelledby="rate-title">
+      <h2 id="rate-title" class="section-title">Reviews</h2>
+
+      <!-- selector de producto -->
+      <div class="current-item">
+        <span>Calificando:</span>
+        <strong id="currentItemName">—</strong>
+        <span id="currentItemPrice" class="muted"></span>
+      </div>
 
       <form id="reviewForm" novalidate>
-        <!-- RATING -->
-        <fieldset class="stars" aria-labelledby="label-rating">
-          <legend id="label-rating">Califica:</legend>
+        <fieldset class="stars">
+          <legend>Tu calificación</legend>
 
-          <!-- Importante: row-reverse para que ~ funcione con hover/checked -->
-          <div class="stars-group" role="radiogroup" aria-label="Calificación de 1 a 5">
-            <input type="radio" name="rating" id="star5" value="5" />
-            <label for="star5" title="5 estrellas" aria-label="5 estrellas">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.3 4.6 1.6 6.9L12 17l-6.3 4.8 1.6-6.9L2 9.3l7.1-.7L12 2z"/></svg>
-            </label>
+          <div class="stars-group" role="radiogroup" aria-label="Calificación 1 a 5">
+            <input type="radio" name="rating" id="s5" value="5" />
+            <label for="s5" title="5 estrellas" aria-label="5"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.3 4.6 1.6 6.9L12 17l-6.3 4.8 1.6-6.9L2 9.3l7.1-.7L12 2z"/></svg></label>
 
-            <input type="radio" name="rating" id="star4" value="4" />
-            <label for="star4" title="4 estrellas" aria-label="4 estrellas">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.3 4.6 1.6 6.9L12 17l-6.3 4.8 1.6-6.9L2 9.3l7.1-.7L12 2z"/></svg>
-            </label>
+            <input type="radio" name="rating" id="s4" value="4" />
+            <label for="s4" title="4 estrellas" aria-label="4"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.3 4.6 1.6 6.9L12 17l-6.3 4.8 1.6-6.9L2 9.3l7.1-.7L12 2z"/></svg></label>
 
-            <input type="radio" name="rating" id="star3" value="3" />
-            <label for="star3" title="3 estrellas" aria-label="3 estrellas">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.3 4.6 1.6 6.9L12 17l-6.3 4.8 1.6-6.9L2 9.3l7.1-.7L12 2z"/></svg>
-            </label>
+            <input type="radio" name="rating" id="s3" value="3" />
+            <label for="s3" title="3 estrellas" aria-label="3"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.3 4.6 1.6 6.9L12 17l-6.3 4.8 1.6-6.9L2 9.3l7.1-.7L12 2z"/></svg></label>
 
-            <input type="radio" name="rating" id="star2" value="2" />
-            <label for="star2" title="2 estrellas" aria-label="2 estrellas">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.3 4.6 1.6 6.9L12 17l-6.3 4.8 1.6-6.9L2 9.3l7.1-.7L12 2z"/></svg>
-            </label>
+            <input type="radio" name="rating" id="s2" value="2" />
+            <label for="s2" title="2 estrellas" aria-label="2"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.3 4.6 1.6 6.9L12 17l-6.3 4.8 1.6-6.9L2 9.3l7.1-.7L12 2z"/></svg></label>
 
-            <input type="radio" name="rating" id="star1" value="1" />
-            <label for="star1" title="1 estrella" aria-label="1 estrella">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.7-5.3 4.6 1.6 6.9L12 17l-6.3 4.8 1.6-6.9L2 9.3l7.1-.7L12 2z"/></svg>
-            </label>
+            <input type="radio" name="rating" id="s1" value="1" />
+            <label for="s1" title="1 estrella" aria-label="1"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.3 4.6 1.6 6.9L12 17l-6.3 4.8 1.6-6.9L2 9.3l7.1-.7L12 2z"/></svg></label>
           </div>
 
-          <output id="ratingValue" for="star1 star2 star3 star4 star5" aria-live="polite">0.0</output>
+          <output id="ratingValue" class="muted">0.0</output>
         </fieldset>
 
-        <!-- COMMENT -->
-        <label for="comment" class="comment-label">Comentarios</label>
-        <textarea id="comment" name="comment" rows="5" maxlength="300" placeholder="Escribe tu comentario..."></textarea>
+        <label for="comment" class="section-title small">Comentarios</label>
+        <div class="comment-row">
+          <svg class="comment-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v12H8l-5 5V5z" stroke="currentColor" fill="none" stroke-width="1.7"/></svg>
+          <textarea id="comment" rows="4" maxlength="300" placeholder="Escribe tu comentario..."></textarea>
+        </div>
         <div class="helper">
           <span id="charCount">0/300</span>
+          <span id="avgForItem" class="right muted">Promedio: —</span>
         </div>
 
-        <!-- ERRORS -->
-        <div id="formError" class="error" role="alert" aria-live="assertive"></div>
+        <div id="formError" class="error" role="alert"></div>
 
-        <button type="submit" class="btn">Agregar Comentarios</button>
+        <button class="btn" type="submit">Agregar Comentarios</button>
       </form>
     </section>
 
-    <!-- LIST & STATS -->
-    <section class="reviews-list" aria-labelledby="titulo-resenas">
-      <h2 id="titulo-resenas">Reseñas</h2>
-      <p class="avg">Promedio: <strong id="avgScore">—</strong> <span id="totalCount"></span></p>
+    <!-- Lista de reseñas por ítem -->
+    <section class="reviews-list" aria-labelledby="r-title">
+      <h2 id="r-title" class="section-title">Reseñas del producto</h2>
       <ul id="reviews"></ul>
     </section>
   </main>
 
-  <script src="./app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

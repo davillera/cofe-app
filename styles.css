@@ -1,190 +1,116 @@
+/* Paleta inspirada en el mock */
 :root{
-  --bg:#faf8f6;
-  --card:#ffffff;
-  --text:#1f1f1f;
-  --muted:#6b7280;
-  --star:#d1d5db;      /* gris */
-  --star-active:#f59e0b;/* amarillo */
-  --danger:#b91c1c;
-  --primary:#2f2f2f;
+  --bg:#f7f2eb;          /* crema suave */
+  --text:#22170f;        /* marrón muy oscuro */
+  --muted:#6b5a4a;       /* café medio para textos secundarios */
+  --brown:#725235;       /* tarjetas y botón */
+  --brown-700:#5b422a;   /* borde/sombra */
+  --border:#e7dfd7;
+  --star:#bfa693;
+  --star-active:#f3b23d; /* amarillo cálido */
+  --card:#fff;
 }
 
 *{box-sizing:border-box}
+html,body{height:100%}
 body{
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
   margin:0;
   background:var(--bg);
   color:var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Inter, Roboto, Arial, sans-serif;
 }
 
-.container{
-  max-width:640px;
-  margin:24px auto;
-  padding:0 16px;
+.container{max-width:420px;margin:0 auto;padding:12px 14px 36px}
+
+.back-btn{
+  background:none;border:none;color:var(--text);
+  font-size:28px;line-height:1;padding:6px 0;cursor:pointer
 }
 
-h1{margin:0 0 12px 0}
-h2{margin:24px 0 8px 0}
+h1{margin:0 0 8px 0;font-weight:700}
 
-.review-widget,
-.reviews-list{
-  background:var(--card);
-  border:1px solid #e5e7eb;
-  border-radius:12px;
-  padding:16px;
+.section-title{
+  font-size:18px;margin:16px 0 8px 0
+}
+.section-title.small{font-size:16px;margin-top:12px}
+
+.address-pill{
+  background:#f0e9e1;border:1px solid var(--border);
+  border-radius:10px;padding:14px;margin:10px 0 14px 0;
+  color:#3a2a1d;line-height:1.25
 }
 
-.review-widget{ margin-bottom:16px; }
+/* Lista de ítems */
+.items-list{
+  list-style:none;margin:0;padding:0;display:grid;gap:12px;
+}
+.item{
+  display:grid;grid-template-columns:84px 1fr;gap:12px;
+  background:var(--brown);color:#fdf8f3;border:1px solid #2b241e;
+  border-radius:6px;box-shadow:0 1.5px 0 #2b241e;overflow:hidden;
+  cursor:pointer
+}
+.item img{width:100%;height:84px;object-fit:cover}
+.item .info{display:flex;flex-direction:column;justify-content:center}
+.item .row-top{display:flex;gap:6px;align-items:center}
+.item .qty{font-weight:700}
+.item .name{font-weight:600}
+.item .price{margin-top:6px}
+.item input{display:none}
+.item.active{outline:2px solid #000;outline-offset:2px}
 
-legend{font-weight:600;margin-bottom:8px}
+/* Widget */
+.widget{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:14px;margin-top:16px
+}
 
+.current-item{display:flex;gap:6px;align-items:center;margin-bottom:6px}
+.muted{color:var(--muted)}
+.right{margin-left:auto}
+
+/* Estrellas */
+.stars legend{font-weight:600;margin-bottom:6px}
 .stars-group{
-  display:flex;
-  flex-direction: row-reverse; /* permite usar ~ para los anteriores */
-  gap:6px;
-  align-items:center;
+  display:flex;flex-direction:row-reverse;gap:6px;align-items:center
 }
-
-.stars-group input{
-  position:absolute;
-  opacity:0;
-  pointer-events:none;
-}
-
-.stars-group label{
-  width:34px;
-  height:34px;
-  display:inline-grid;
-  place-items:center;
-  cursor:pointer;
-}
-
-.stars-group label svg{
-  width:100%;
-  height:100%;
-  fill:var(--star);
-  transition:transform .1s ease, fill .15s ease;
-}
-
-/* hover: ilumina esta y todas a su izquierda (por row-reverse) */
+.stars-group input{position:absolute;opacity:0;pointer-events:none}
+.stars-group label{width:30px;height:30px;display:grid;place-items:center;cursor:pointer}
+.stars-group label svg{width:100%;height:100%;fill:var(--star);transition:fill .15s,transform .1s}
 .stars-group label:hover svg,
-.stars-group label:hover ~ label svg{
-  fill:var(--star-active);
-  transform:scale(1.05);
-}
+.stars-group label:hover ~ label svg{fill:var(--star-active);transform:scale(1.05)}
+.stars-group input:checked ~ label svg{fill:var(--star-active)}
+#ratingValue{margin-left:8px;font-variant-numeric:tabular-nums}
 
-/* checked: estado persistente */
-.stars-group input:checked ~ label svg{
-  fill:var(--star-active);
-}
-
-/* focus visible para accesibilidad al navegar con teclado */
-.stars-group input:focus + label{
-  outline:2px solid #111827;
-  outline-offset:2px;
-  border-radius:6px;
-}
-
-#ratingValue{
-  margin-left:10px;
-  font-variant-numeric: tabular-nums;
-  color:var(--muted);
-}
-
-.comment-label{
-  display:block;
-  margin-top:10px;
-  margin-bottom:6px;
-  font-weight:600;
-}
-
+/* Comentario */
+.comment-row{display:flex;gap:8px;align-items:flex-start}
+.comment-icon{width:28px;height:28px;color:var(--text);flex:0 0 auto;margin-top:6px}
 textarea{
-  width:100%;
-  resize:vertical;
-  min-height:110px;
-  padding:10px 12px;
-  border:1px solid #e5e7eb;
-  border-radius:10px;
-  background:#fff;
-  color:var(--text);
+  flex:1;background:#fff;border:1px solid var(--border);border-radius:8px;
+  padding:10px;min-height:96px;color:var(--text)
 }
+.helper{display:flex;gap:10px;justify-content:space-between;font-size:.9rem;margin:6px 2px 8px}
+.error{color:#8b1a1a;min-height:1.1em}
 
-.helper{
-  display:flex;
-  justify-content:flex-end;
-  font-size:.9rem;
-  color:var(--muted);
-  margin:4px 0 8px 0;
-}
-
-.error{
-  color:var(--danger);
-  font-size:.95rem;
-  min-height:1.1em;
-  margin-bottom:6px;
-}
-
+/* Botón marrón */
 .btn{
-  display:inline-block;
-  width:100%;
-  padding:12px 14px;
-  border:none;
-  border-radius:12px;
-  background:var(--primary);
-  color:#fff;
-  font-weight:600;
-  cursor:pointer;
+  width:100%;border:none;background:var(--brown);color:#f7efe7;
+  padding:14px 16px;border-radius:6px;font-weight:700;letter-spacing:.2px;
+  box-shadow:0 2px 0 var(--brown-700);cursor:pointer
 }
+.btn:active{transform:translateY(1px)}
 
-.btn:active{ transform: translateY(1px); }
-
-.reviews-list .avg{
-  color:var(--muted);
-  margin:0 0 8px 0;
+/* Reseñas */
+.reviews-list{
+  margin-top:16px;background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:12px
 }
-
-#reviews{
-  list-style:none;
-  margin:0;
-  padding:0;
-  display:grid;
-  gap:12px;
-}
-
+#reviews{list-style:none;padding:0;margin:0;display:grid;gap:10px}
 .review{
-  border:1px solid #edf0f3;
-  border-radius:10px;
-  padding:10px 12px;
-  background:#fff;
+  border:1px solid var(--border);border-radius:8px;background:#fff;
+  padding:10px
 }
-
-.review .meta{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  color:#111827;
-  font-weight:600;
-}
-
-.review .meta .stars-inline{
-  display:inline-flex;
-  gap:2px;
-}
-
-.star-small{
-  width:18px;height:18px;
-  fill:var(--star-active);
-}
-
-.review .text{
-  margin:6px 0 0 0;
-  color:#334155;
-  white-space:pre-wrap;
-}
-
-/* utilidades */
-.sr-only{
-  position:absolute!important;
-  width:1px;height:1px;
-  padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;
-}
+.review .head{display:flex;align-items:center;gap:8px}
+.review .date{margin-left:auto;color:var(--muted);font-size:.9rem}
+.star-small{width:18px;height:18px;fill:var(--star-active)}
+.review .text{margin:6px 0 0 0;color:#3d2c1f;white-space:pre-wrap}
