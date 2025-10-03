@@ -1,0 +1,190 @@
+:root{
+  --bg:#faf8f6;
+  --card:#ffffff;
+  --text:#1f1f1f;
+  --muted:#6b7280;
+  --star:#d1d5db;      /* gris */
+  --star-active:#f59e0b;/* amarillo */
+  --danger:#b91c1c;
+  --primary:#2f2f2f;
+}
+
+*{box-sizing:border-box}
+body{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.container{
+  max-width:640px;
+  margin:24px auto;
+  padding:0 16px;
+}
+
+h1{margin:0 0 12px 0}
+h2{margin:24px 0 8px 0}
+
+.review-widget,
+.reviews-list{
+  background:var(--card);
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:16px;
+}
+
+.review-widget{ margin-bottom:16px; }
+
+legend{font-weight:600;margin-bottom:8px}
+
+.stars-group{
+  display:flex;
+  flex-direction: row-reverse; /* permite usar ~ para los anteriores */
+  gap:6px;
+  align-items:center;
+}
+
+.stars-group input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+
+.stars-group label{
+  width:34px;
+  height:34px;
+  display:inline-grid;
+  place-items:center;
+  cursor:pointer;
+}
+
+.stars-group label svg{
+  width:100%;
+  height:100%;
+  fill:var(--star);
+  transition:transform .1s ease, fill .15s ease;
+}
+
+/* hover: ilumina esta y todas a su izquierda (por row-reverse) */
+.stars-group label:hover svg,
+.stars-group label:hover ~ label svg{
+  fill:var(--star-active);
+  transform:scale(1.05);
+}
+
+/* checked: estado persistente */
+.stars-group input:checked ~ label svg{
+  fill:var(--star-active);
+}
+
+/* focus visible para accesibilidad al navegar con teclado */
+.stars-group input:focus + label{
+  outline:2px solid #111827;
+  outline-offset:2px;
+  border-radius:6px;
+}
+
+#ratingValue{
+  margin-left:10px;
+  font-variant-numeric: tabular-nums;
+  color:var(--muted);
+}
+
+.comment-label{
+  display:block;
+  margin-top:10px;
+  margin-bottom:6px;
+  font-weight:600;
+}
+
+textarea{
+  width:100%;
+  resize:vertical;
+  min-height:110px;
+  padding:10px 12px;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  background:#fff;
+  color:var(--text);
+}
+
+.helper{
+  display:flex;
+  justify-content:flex-end;
+  font-size:.9rem;
+  color:var(--muted);
+  margin:4px 0 8px 0;
+}
+
+.error{
+  color:var(--danger);
+  font-size:.95rem;
+  min-height:1.1em;
+  margin-bottom:6px;
+}
+
+.btn{
+  display:inline-block;
+  width:100%;
+  padding:12px 14px;
+  border:none;
+  border-radius:12px;
+  background:var(--primary);
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.btn:active{ transform: translateY(1px); }
+
+.reviews-list .avg{
+  color:var(--muted);
+  margin:0 0 8px 0;
+}
+
+#reviews{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  gap:12px;
+}
+
+.review{
+  border:1px solid #edf0f3;
+  border-radius:10px;
+  padding:10px 12px;
+  background:#fff;
+}
+
+.review .meta{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#111827;
+  font-weight:600;
+}
+
+.review .meta .stars-inline{
+  display:inline-flex;
+  gap:2px;
+}
+
+.star-small{
+  width:18px;height:18px;
+  fill:var(--star-active);
+}
+
+.review .text{
+  margin:6px 0 0 0;
+  color:#334155;
+  white-space:pre-wrap;
+}
+
+/* utilidades */
+.sr-only{
+  position:absolute!important;
+  width:1px;height:1px;
+  padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;
+}
